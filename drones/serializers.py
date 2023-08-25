@@ -9,7 +9,10 @@ from rest_framework import serializers
 class UserDroneSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Drone
-        fields = ('url', 'name')
+        fields = (
+			'url',
+			'name'
+		)
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -17,7 +20,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url',
+        fields = (
+			'url',
             'pk',
             'username',
             'drones'

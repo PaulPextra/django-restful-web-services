@@ -49,9 +49,7 @@ class DroneCategoryTests(APITestCase):
         drone_caregory_name2 = 'Octocopter'
         self.post_drone_category(drone_caregory_name2)
         filter_by_name = { 'name' : drone_category_name1 }
-        url = '{0}?{1}'.format(
-            reverse(views.DroneCategoryList.name),
-            urlencode(filter_by_name))
+        url = '{0}?{1}'.format(reverse(views.DroneCategoryList.name), urlencode(filter_by_name))
         print(url)
         response = self.client.get(url, format='json')
         print(response)
@@ -111,8 +109,7 @@ class PilotTests(APITestCase):
         return response
 
     def create_user_and_set_token_credentials(self):
-        user = User.objects.create_user(
-        'user01', 'user01@example.com', 'user01P4ssw0rD')
+        user = User.objects.create_user('user01', 'user01@example.com', 'user01P4ssw0rD')
         token = Token.objects.create(user=user)
         self.client.credentials(HTTP_AUTHORIZATION='Token {0}'.format(token.key))
 
@@ -137,11 +134,7 @@ class PilotTests(APITestCase):
         assert saved_pilot.name == new_pilot_name
         assert saved_pilot.gender == new_pilot_gender
         assert saved_pilot.races_count == new_pilot_races_count
-        url = reverse(
-            views.PilotDetail.name,
-            None,
-            {saved_pilot.pk}
-        )
+        url = reverse(views.PilotDetail.name, None, {saved_pilot.pk})
         authorized_get_response = self.client.get(url, format='json')
         assert authorized_get_response.status_code == status.HTTP_200_OK
         assert authorized_get_response.data['name'] == new_pilot_name
